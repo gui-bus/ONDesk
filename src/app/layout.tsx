@@ -2,13 +2,15 @@ import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
 import "./globals.css";
 import UIProvider from "@/providers/UIProvider";
+import { Header } from "@/components/common/header";
+import Footer from "@/components/common/footer";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ONDESK | Gerencie sua empresa de forma fácil!",
+  title: "ONDesk | Gerencie sua empresa de forma fácil!",
   description:
-    "Simplifique a gestão do seu negócio com a plataforma Ondesk. Cadastre clientes, acompanhe tarefas e otimize sua operação de forma eficiente.",
+    "Simplifique a gestão do seu negócio com a plataforma ONDesk. Cadastre clientes, acompanhe tarefas e otimize sua operação de forma eficiente.",
   keywords: [
     "Ondesk",
     "Gestão Empresarial",
@@ -67,7 +69,11 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={montserrat.className}>
-        <UIProvider>{children}</UIProvider>
+        <UIProvider>
+          <Header />
+          {children}
+          <Footer />
+        </UIProvider>
       </body>
     </html>
   );
