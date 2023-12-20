@@ -1,3 +1,4 @@
+"use client";
 import Image from "next/image";
 import Logo from "../../src/app/favicon.ico";
 import Brands from "../../public/brands.png";
@@ -8,6 +9,7 @@ import Cover from "../../public/cover.png";
 import { Button } from "@nextui-org/react";
 import { MdOutlineAdminPanelSettings } from "react-icons/md";
 import { MdTaskAlt } from "react-icons/md";
+import { signIn, useSession } from "next-auth/react";
 
 const AboutTexts: { title: string; text: string }[] = [
   {
@@ -25,6 +27,12 @@ const AboutTexts: { title: string; text: string }[] = [
 ];
 
 export default function Home() {
+  const { status, data } = useSession();
+
+  const handleLogin = async () => {
+    await signIn();
+  };
+
   return (
     <main className="flex flex-col items-center justify-center gap-10 pb-10 text-ondesk cursor-default">
       <section className="w-full py-20 bg-[url('/bgHero.png')] bg-cover bg-center bg-no-repeat flex items-center justify-center px-5 cursor-default">
@@ -46,14 +54,17 @@ export default function Home() {
             do seu negócio.
           </p>
 
-          <Button
-            endContent={<MdOutlineAdminPanelSettings size={25} />}
-            color="primary"
-            variant="shadow"
-            className="w-full max-w-md font-medium h-14"
-          >
-            Entrar na Plataforma
-          </Button>
+          {status === "unauthenticated" && (
+            <Button
+              endContent={<MdOutlineAdminPanelSettings size={25} />}
+              color="primary"
+              variant="shadow"
+              className="w-full max-w-md font-medium h-14"
+              onClick={handleLogin}
+            >
+              Entrar na Plataforma
+            </Button>
+          )}
         </div>
       </section>
 
@@ -87,8 +98,8 @@ export default function Home() {
 
         <div className="flex flex-col items-center justify-center gap-2 bg-[#333333] text-white p-5 rounded-b-3xl">
           <span className="font-bold uppercase text-xl flex items-center justify-center gap-2 text-center">
-            Na ONDesk, acreditamos na simplificação do gerenciamento
-            empresarial <MdTaskAlt size={40} className="hidden lg:block"/>
+            Na ONDesk, acreditamos na simplificação do gerenciamento empresarial{" "}
+            <MdTaskAlt size={40} className="hidden lg:block" />
           </span>
           <p className="font-light text-center">
             Nossa missão é fornecer uma plataforma intuitiva que unifica a
