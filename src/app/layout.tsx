@@ -70,9 +70,11 @@ export default function RootLayout({
     <html lang="pt-BR">
       <body className={montserrat.className}>
         <UIProvider>
-          <Header />
-          {children}
-          <Footer />
+          <div className="flex min-h-screen flex-col bg-gradient-to-t from-neutral-50 to-neutral-100">
+            <Header />
+            <main className="flex-grow">{children}</main>
+            <Footer />
+          </div>
         </UIProvider>
       </body>
     </html>
