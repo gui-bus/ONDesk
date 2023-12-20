@@ -26,7 +26,7 @@ const AboutTexts: { title: string; text: string }[] = [
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center justify-center gap-10 pb-10 text-ondesk">
+    <main className="flex flex-col items-center justify-center gap-10 pb-10 text-ondesk cursor-default">
       <section className="w-full py-20 bg-[url('/bgHero.png')] bg-cover bg-center bg-no-repeat flex items-center justify-center px-5 cursor-default">
         <div className="flex flex-col items-center justify-center gap-7">
           <Image
