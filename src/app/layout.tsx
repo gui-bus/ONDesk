@@ -4,6 +4,7 @@ import "./globals.css";
 import UIProvider from "@/providers/UIProvider";
 import { Header } from "@/components/common/header";
 import Footer from "@/components/common/footer";
+import { AuthProvider } from "@/providers/auth";
 
 const montserrat = Montserrat({ subsets: ["latin"] });
 
@@ -69,13 +70,15 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={montserrat.className}>
-        <UIProvider>
-          <div className="flex min-h-screen flex-col bg-gradient-to-t from-neutral-50 to-neutral-100">
-            <Header />
-            <main className="flex-grow">{children}</main>
-            <Footer />
-          </div>
-        </UIProvider>
+        <AuthProvider>
+          <UIProvider>
+            <div className="flex min-h-screen flex-col bg-gradient-to-t from-neutral-50 to-neutral-100">
+              <Header />
+              <main className="flex-grow">{children}</main>
+              <Footer />
+            </div>
+          </UIProvider>
+        </AuthProvider>
       </body>
     </html>
   );
