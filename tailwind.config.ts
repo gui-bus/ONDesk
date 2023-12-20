@@ -9,7 +9,11 @@ const config: Config = {
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        ondesk: "#394149"
+      }
+    },
   },
   darkMode: "class",
   plugins: [nextui()],
