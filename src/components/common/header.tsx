@@ -13,9 +13,6 @@ import { signIn, signOut, useSession } from "next-auth/react";
 export function Header() {
   const { status, data } = useSession();
 
-  console.log(data?.user.name);
-  console.log(status);
-
   const handleLogin = async () => {
     await signIn();
   };
@@ -39,7 +36,7 @@ export function Header() {
 
         <div className="flex items-center justify-center gap-2">
           {status === "loading" ? (
-            <Spinner size="lg" color="primary" />
+            <Spinner size="md" color="primary" />
           ) : (
             <>
               {status === "authenticated" ? (
