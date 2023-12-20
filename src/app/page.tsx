@@ -7,8 +7,8 @@ import Checkmark from "../../public/checkmark.png";
 import Cover from "../../public/cover.png";
 
 import { Button } from "@nextui-org/react";
-import { MdOutlineAdminPanelSettings } from "react-icons/md";
-import { MdTaskAlt } from "react-icons/md";
+import { MdOutlineAdminPanelSettings, MdTaskAlt } from "react-icons/md";
+import { RiAdminLine } from "react-icons/ri";
 import { signIn, useSession } from "next-auth/react";
 
 const AboutTexts: { title: string; text: string }[] = [
@@ -54,6 +54,16 @@ export default function Home() {
             do seu negócio.
           </p>
 
+          {status === "loading" && (
+            <Button
+              color="primary"
+              variant="shadow"
+              className="w-full max-w-md font-medium h-14"
+              isLoading
+              isIconOnly
+            />
+          )}
+
           {status === "unauthenticated" && (
             <Button
               endContent={<MdOutlineAdminPanelSettings size={25} />}
@@ -63,6 +73,17 @@ export default function Home() {
               onClick={handleLogin}
             >
               Entrar na Plataforma
+            </Button>
+          )}
+
+          {status === "authenticated" && (
+            <Button
+              endContent={<RiAdminLine size={25} />}
+              color="primary"
+              variant="shadow"
+              className="w-full max-w-md font-medium h-14"
+            >
+              Gerenciar Chamados
             </Button>
           )}
         </div>
