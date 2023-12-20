@@ -8,7 +8,7 @@ import Footer from "@/components/common/footer";
 const montserrat = Montserrat({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ONDesk | Gerencie sua empresa de forma fácil!",
+  title: "ONDesk | Simplificando sua gestão empresarial",
   description:
     "Simplifique a gestão do seu negócio com a plataforma ONDesk. Cadastre clientes, acompanhe tarefas e otimize sua operação de forma eficiente.",
   keywords: [
