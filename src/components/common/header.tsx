@@ -36,7 +36,13 @@ export function Header() {
 
         <div className="flex items-center justify-center gap-2">
           {status === "loading" ? (
-            <Spinner size="md" color="primary" />
+            <Button
+              color="primary"
+              variant="shadow"
+              className="font-medium"
+              isLoading
+              isIconOnly
+            />
           ) : (
             <>
               {status === "authenticated" ? (
@@ -52,30 +58,26 @@ export function Header() {
                     </Button>
                   </Link>
 
-                  <Link href="/">
-                    <Button
-                      endContent={<TbDoorExit size={20} />}
-                      color="danger"
-                      variant="shadow"
-                      className="font-medium"
-                      onClick={handleLogout}
-                    >
-                      Sair
-                    </Button>
-                  </Link>
-                </>
-              ) : (
-                <Link href="/">
                   <Button
-                    endContent={<MdOutlineAdminPanelSettings size={20} />}
-                    color="primary"
+                    endContent={<TbDoorExit size={20} />}
+                    color="danger"
                     variant="shadow"
                     className="font-medium"
-                    onClick={handleLogin}
+                    onClick={handleLogout}
                   >
-                    Entrar
+                    Sair
                   </Button>
-                </Link>
+                </>
+              ) : (
+                <Button
+                  endContent={<MdOutlineAdminPanelSettings size={20} />}
+                  color="primary"
+                  variant="shadow"
+                  className="font-medium"
+                  onClick={handleLogin}
+                >
+                  Entrar
+                </Button>
               )}
             </>
           )}
