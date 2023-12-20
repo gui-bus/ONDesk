@@ -16,13 +16,13 @@ export function Header() {
   console.log(data?.user.name);
   console.log(status);
 
-  async function handleLogin() {
+  const handleLogin = async () => {
     await signIn();
-  }
+  };
 
-  async function handleLogout() {
+  const handleLogout = async () => {
     await signOut();
-  }
+  };
 
   return (
     <header className="w-full mx-auto flex items-center px-2 py-4 h-20 drop-shadow-xl bg-[#333333]">
@@ -39,7 +39,7 @@ export function Header() {
 
         <div className="flex items-center justify-center gap-2">
           {status === "loading" ? (
-            <Spinner size="md" color="primary" />
+            <Spinner size="lg" color="primary" />
           ) : (
             <>
               {status === "authenticated" ? (
