@@ -6,7 +6,7 @@ import { Button, Link } from "@nextui-org/react";
 import { PiUserCirclePlus } from "react-icons/pi";
 import CardCostumer from "./components/card";
 
-export default async function Dashboard() {
+export default async function DashboardCustomer() {
   const session = await getServerSession(AuthOption);
 
   if (!session || !session.user) {
@@ -16,13 +16,12 @@ export default async function Dashboard() {
   return (
     <Container>
       <main className="pb-5">
-        <div className="flex flex-col items-center justify-center text-center gap-4">
+        <div className="flex flex-col items-center justify-center text-center gap-4 bg-[url('/clients2.png')] bg-cover bg-center bg-no-repeat  py-10 text-white rounded-tr-xl rounded-bl-xl px-4">
           <h1 className="font-black text-2xl uppercase">Lista de Clientes</h1>
           <p className="font-light">
-            Agilize o gerenciamento de clientes. Cadastre novos clientes,
-            informações detalhadas e acesse facilmente os dados essenciais.
-            Mantenha um registro organizado por meio do sistema de cadastro de
-            clientes da ONDesk.
+            Agilize o gerenciamento de clientes. Cadastre-os,
+            veja informações detalhadas e acesse facilmente os dados essenciais.
+            
           </p>
           <Link
             href="/dashboard/customer/new"
@@ -31,7 +30,7 @@ export default async function Dashboard() {
             <Button
               endContent={<PiUserCirclePlus size={20} />}
               color="primary"
-              variant="ghost"
+              variant="shadow"
               className="font-medium w-full max-w-sm h-12 mx-auto"
             >
               Novo Cliente

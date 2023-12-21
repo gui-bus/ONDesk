@@ -16,19 +16,17 @@ export default async function Dashboard() {
   return (
     <Container>
       <main className="pb-5">
-        <div className="flex flex-col items-center justify-center text-center gap-4">
+        <div className="flex flex-col items-center justify-center text-center gap-4 bg-[url('/tickets.png')] bg-cover bg-center bg-no-repeat  py-10 text-white rounded-tr-xl rounded-bl-xl px-4">
           <h1 className="font-black text-2xl uppercase">Lista de Chamados</h1>
           <p className="font-light">
             Otimize a operação da sua empresa. Cadastre novos chamados,
             acompanhe o status, e acesse facilmente todas as interações.
-            Mantenha-se organizado e ofereça um suporte eficiente com a
-            funcionalidade de chamados da ONDesk.
           </p>
           <Link href="/dashboard/new" className="w-full mx-auto max-w-md">
             <Button
               endContent={<BiLayerPlus size={20} />}
               color="primary"
-              variant="ghost"
+              variant="shadow"
               className="font-medium w-full max-w-sm h-12 mx-auto"
             >
               Novo Chamado
