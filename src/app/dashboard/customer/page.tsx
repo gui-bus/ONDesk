@@ -1,6 +1,6 @@
-import { Container } from "../../components/common/container";
+import { Container } from "../../../components/common/container";
 import { getServerSession } from "next-auth";
-import { AuthOption } from "../../lib/auth";
+import { AuthOption } from "../../../lib/auth";
 import { redirect } from "next/navigation";
 
 export default async function Dashboard() {
@@ -13,7 +13,7 @@ export default async function Dashboard() {
   return (
     <Container>
       <main>
-        <h1>Dashboard</h1>
+        <h1>Clientes</h1>
       </main>
     </Container>
   );
