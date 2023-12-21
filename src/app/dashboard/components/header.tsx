@@ -14,7 +14,7 @@ export function DashboardHeader() {
             variant="light"
             className="font-medium"
           >
-            Acessar Chamados
+            Lista de Chamados
           </Button>
         </Link>
         <Link href="/dashboard/customer">
