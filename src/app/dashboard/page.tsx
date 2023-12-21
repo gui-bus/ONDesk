@@ -31,7 +31,7 @@ export default async function Dashboard() {
               variant="ghost"
               className="font-medium w-full max-w-sm h-12 mx-auto"
             >
-              Cadastrar
+              Novo Chamado
             </Button>
           </Link>
         </div>
