@@ -23,7 +23,7 @@ export function Header() {
 
   return (
     <header className="w-full mx-auto flex items-center px-2 py-4 h-20 drop-shadow-xl bg-[#333333]">
-      <nav className="w-full max-w-5xl mx-auto flex items-center justify-around md:justify-between px-2 gap-6">
+      <nav className="w-full max-w-5xl mx-auto flex items-center justify-around lg:justify-between px-2 gap-6">
         <Link href="/">
           <Image
             src={Logo}

@@ -36,7 +36,7 @@ export default async function Dashboard() {
           </Link>
         </div>
 
-        <table className="min-w-full my-5">
+        <table className="min-w-full my-5 cursor-default">
           <thead>
             <tr className="bg-[#333333] p-2 font-black text-white">
               <th className="text-center font-medium p-4">Cliente</th>
