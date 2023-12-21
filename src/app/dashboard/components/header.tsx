@@ -11,20 +11,20 @@ export function DashboardHeader() {
           <Button
             endContent={<MdOutlineLibraryBooks size={20} />}
             color="primary"
-            variant="shadow"
+            variant="light"
             className="font-medium"
           >
-            Chamados
+            Acessar Chamados
           </Button>
         </Link>
         <Link href="/dashboard/customer">
           <Button
             endContent={<FaUsers size={20} />}
             color="primary"
-            variant="shadow"
+            variant="light"
             className="font-medium"
           >
-            Clientes
+            Lista de Clientes
           </Button>
         </Link>
       </header>

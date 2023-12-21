@@ -68,8 +68,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="pt-BR">
-      <body className={montserrat.className}>
+    <html lang="pt-BR" suppressHydrationWarning>
+      <body className={montserrat.className} suppressHydrationWarning>
         <AuthProvider>
           <UIProvider>
             <div className="flex min-h-screen flex-col bg-gradient-to-t from-neutral-50 to-neutral-100">
