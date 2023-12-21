@@ -6,7 +6,7 @@ import About from "../../public/about.png";
 import Checkmark from "../../public/checkmark.png";
 import Cover from "../../public/cover.png";
 
-import { Button } from "@nextui-org/react";
+import { Button, Link } from "@nextui-org/react";
 import { MdOutlineAdminPanelSettings, MdTaskAlt } from "react-icons/md";
 import { RiAdminLine } from "react-icons/ri";
 import { signIn, useSession } from "next-auth/react";
@@ -77,14 +77,16 @@ export default function Home() {
           )}
 
           {status === "authenticated" && (
-            <Button
-              endContent={<RiAdminLine size={25} />}
-              color="primary"
-              variant="shadow"
-              className="w-full max-w-md font-medium h-14"
-            >
-              Gerenciar Chamados
-            </Button>
+            <Link href="/dashboard" className="w-full max-w-md mx-auto">
+              <Button
+                endContent={<RiAdminLine size={25} />}
+                color="primary"
+                variant="shadow"
+                className="w-full max-w-md font-medium h-14"
+              >
+                Gerenciar Chamados
+              </Button>
+            </Link>
           )}
         </div>
       </section>

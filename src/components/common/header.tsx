@@ -46,28 +46,15 @@ export function Header() {
           ) : (
             <>
               {status === "authenticated" ? (
-                <>
-                  <Link href="/dashboard">
-                    <Button
-                      endContent={<RiAdminLine size={20} />}
-                      color="primary"
-                      variant="shadow"
-                      className="font-medium"
-                    >
-                      Painel
-                    </Button>
-                  </Link>
-
-                  <Button
-                    endContent={<TbDoorExit size={20} />}
-                    color="danger"
-                    variant="shadow"
-                    className="font-medium"
-                    onClick={handleLogout}
-                  >
-                    Sair
-                  </Button>
-                </>
+                <Button
+                  endContent={<TbDoorExit size={20} />}
+                  color="danger"
+                  variant="shadow"
+                  className="font-medium"
+                  onClick={handleLogout}
+                >
+                  Sair
+                </Button>
               ) : (
                 <Button
                   endContent={<MdOutlineAdminPanelSettings size={20} />}
