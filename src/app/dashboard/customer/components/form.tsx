@@ -59,6 +59,7 @@ export function NewCustomerForm({ userId }: { userId: string }) {
       userId: userId,
     });
 
+    router.refresh();
     router.push("/dashboard/customer")
     toast.success("Cliente cadastrado com sucesso!", { style : {
       fontSize: "12px"

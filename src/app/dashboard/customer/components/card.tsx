@@ -12,10 +12,16 @@ import {
   PopoverContent,
   Link,
 } from "@nextui-org/react";
-import { PiUserCirclePlus, PiUserCircleMinus } from "react-icons/pi";
+import { PiUserCircleMinus } from "react-icons/pi";
 import { TbMailForward, TbPhoneOutgoing } from "react-icons/tb";
 
-export default function CardCostumer() {
+import { CustomerProps } from "../../../../utils/customer.type";
+
+export default function CardCostumer({
+  customer,
+}: {
+  customer: CustomerProps;
+}) {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const closePopover = () => {
@@ -25,16 +31,18 @@ export default function CardCostumer() {
   return (
     <Card className="cursor-default">
       <CardHeader className="flex items-center justify-center bg-[#333333]">
-        <p className="font-bold text-lg text-white">FutureTECH</p>
+        <p className="font-bold text-lg text-white">{customer.name}</p>
       </CardHeader>
       <Divider />
       <CardBody className="flex flex-row items-center justify-around mx-auto w-full">
         <div className="flex flex-col items-start justify-start">
           <p>
-            <span>E-mail - </span>contato@futuretech.com
+            <span>E-mail - </span>
+            {customer.email}
           </p>
           <p>
-            <span>Whatsapp - </span>(12)99999-9999
+            <span>Whatsapp - </span>
+            {customer.phone}
           </p>
         </div>
         <div>
@@ -93,7 +101,7 @@ export default function CardCostumer() {
           abaixo
         </p>
         <div className="flex items-center justify-center gap-2 w-full mt-2">
-          <Link href="" isExternal className="w-full">
+          <Link href={`mailto:${customer.email}`} isExternal className="w-full">
             <Button
               color="primary"
               variant="ghost"
@@ -104,7 +112,11 @@ export default function CardCostumer() {
             </Button>
           </Link>
 
-          <Link href="" isExternal className="w-full">
+          <Link
+            href={`https://api.whatsapp.com/send/?phone=${customer.phone}&text&type=phone_number&app_absent=0`}
+            target="_blank"
+            className="w-full"
+          >
             <Button
               color="primary"
               variant="ghost"

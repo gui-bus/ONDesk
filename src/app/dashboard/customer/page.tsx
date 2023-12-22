@@ -5,6 +5,7 @@ import { redirect } from "next/navigation";
 import { Button, Link } from "@nextui-org/react";
 import { PiUserCirclePlus } from "react-icons/pi";
 import CardCostumer from "./components/card";
+import prismaClient from "../../../lib/prisma";
 
 export default async function DashboardCustomer() {
   const session = await getServerSession(AuthOption);
@@ -13,15 +14,20 @@ export default async function DashboardCustomer() {
     redirect("/");
   }
 
+  const customers = await prismaClient.customer.findMany({
+    where: {
+      userId: session.user.id,
+    },
+  });
+
   return (
     <Container>
       <main className="pb-5">
         <div className="flex flex-col items-center justify-center text-center gap-4 bg-[url('/clients2.png')] bg-cover bg-center bg-no-repeat  py-10 text-white rounded-tr-xl rounded-bl-xl px-4">
           <h1 className="font-black text-2xl uppercase">Lista de Clientes</h1>
           <p className="font-light">
-            Agilize o gerenciamento de clientes. Cadastre-os,
-            veja informações detalhadas e acesse facilmente os dados essenciais.
-            
+            Agilize o gerenciamento de clientes. Cadastre-os, veja informações
+            detalhadas e acesse facilmente os dados essenciais.
           </p>
           <Link
             href="/dashboard/customer/new"
@@ -38,11 +44,23 @@ export default async function DashboardCustomer() {
           </Link>
         </div>
 
-        <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-5 gap-5">
-          <CardCostumer />
-          <CardCostumer />
-          <CardCostumer />
-        </section>
+        {customers.length > 0 ? (
+          <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-5 gap-5">
+            {customers.map((customer) => (
+              <CardCostumer key={customer.id} customer={customer} />
+            ))}
+          </section>
+        ) : (
+          <section className="flex flex-col items-center justify-center mt-5 text-center">
+            <h3 className="text-xl font-bold mb-3">
+              Oops! Parece que você ainda não possui clientes cadastrados
+            </h3>
+            <p className="font-light">
+              Cadastre algum cliente na plataforma e aproveitar ao máximo os
+              recursos da ONDesk.
+            </p>
+          </section>
+        )}
       </main>
     </Container>
   );
