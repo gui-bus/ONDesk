@@ -12,6 +12,10 @@ import {
 import { IoMdPin } from "react-icons/io";
 import { PiUserCirclePlus } from "react-icons/pi";
 
+import { api } from "../../../../lib/api";
+import toast from "react-hot-toast";
+import { useRouter } from 'next/navigation'
+
 const schema = z.object({
   name: z.string().min(1, "O campo nome é obrigatório!"),
   email: z
@@ -35,7 +39,7 @@ const schema = z.object({
 
 type FormData = z.infer<typeof schema>;
 
-export function NewCustomerForm() {
+export function NewCustomerForm({ userId }: { userId: string }) {
   const {
     register,
     handleSubmit,
@@ -44,8 +48,21 @@ export function NewCustomerForm() {
     resolver: zodResolver(schema),
   });
 
-  function handleRegisterCustomer(data: FormData) {
-    console.log(data);
+  const router = useRouter();
+
+  async function handleRegisterCustomer(data: FormData) {
+    await api.post("/api/customer", {
+      name: data.name,
+      phone: data.phone,
+      email: data.email,
+      address: data.address,
+      userId: userId,
+    });
+
+    router.push("/dashboard/customer")
+    toast.success("Cliente cadastrado com sucesso!", { style : {
+      fontSize: "12px"
+    }})
   }
 
   return (

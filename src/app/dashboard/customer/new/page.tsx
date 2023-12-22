@@ -3,8 +3,6 @@ import { getServerSession } from "next-auth";
 import { AuthOption } from "../../../../lib/auth";
 import { redirect } from "next/navigation";
 import { NewCustomerForm } from "../components/form";
-import Clients from "../../../../../public/clients.png";
-import Image from "next/image";
 
 export default async function NewCostumer() {
   const session = await getServerSession(AuthOption);
@@ -32,7 +30,7 @@ export default async function NewCostumer() {
           </div>
         </div>
 
-        <NewCustomerForm />
+        <NewCustomerForm userId={session.user.id}/>
       </main>
     </Container>
   );
