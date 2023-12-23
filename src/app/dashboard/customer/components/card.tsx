@@ -16,6 +16,9 @@ import { PiUserCircleMinus } from "react-icons/pi";
 import { TbMailForward, TbPhoneOutgoing } from "react-icons/tb";
 
 import { CustomerProps } from "../../../../utils/customer.type";
+import { api } from "../../../../lib/api";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
 
 export default function CardCostumer({
   customer,
@@ -23,24 +26,50 @@ export default function CardCostumer({
   customer: CustomerProps;
 }) {
   const [isOpen, setIsOpen] = React.useState(false);
+  const router = useRouter();
 
   const closePopover = () => {
     setIsOpen(false);
   };
 
+  async function handleDeleteCustomer() {
+    try {
+      const response = await api.delete("/api/customer", {
+        params: {
+          id: customer.id,
+        },
+      });
+
+      router.refresh();
+      setIsOpen(false);
+
+      toast.success("Cliente deletado com sucesso!", {
+        style: {
+          fontSize: "12px",
+        },
+      });
+    } catch (err) {
+      toast.error("Erro ao deletar este cliente!", {
+        style: {
+          fontSize: "12px",
+        },
+      });
+    }
+  }
+
   return (
     <Card className="cursor-default">
       <CardHeader className="flex items-center justify-center bg-[#333333]">
-        <p className="font-bold text-lg text-white">{customer.name}</p>
+        <p className="font-bold text-lg text-white w-full max-w-[80%] mx-auto truncate">{customer.name}</p>
       </CardHeader>
       <Divider />
       <CardBody className="flex flex-row items-center justify-around mx-auto w-full">
         <div className="flex flex-col items-start justify-start">
-          <p>
+          <p className="text-sm w-full max-w-60 mx-auto truncate">
             <span>E-mail - </span>
             {customer.email}
           </p>
-          <p>
+          <p className="text-sm w-full max-w-60 mx-auto truncate">
             <span>Whatsapp - </span>
             {customer.phone}
           </p>
@@ -85,6 +114,7 @@ export default function CardCostumer({
                     variant="shadow"
                     color="danger"
                     className="w-full mx-auto md:my-3"
+                    onClick={handleDeleteCustomer}
                   >
                     Deletar
                   </Button>
