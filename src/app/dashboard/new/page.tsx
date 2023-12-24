@@ -21,6 +21,31 @@ export default async function NewTicket() {
     },
   });
 
+  async function handleRegisterTicket(formData: FormData) {
+    "use server"
+
+    const name = formData.get("name")
+    const description = formData.get("description")
+    const customerId = formData.get("customer")
+
+    if(!name || !description || !customerId){
+      return;
+    }
+    
+    await prismaClient.ticket.create({
+      data: {
+        name: name as string,
+        description: description as string,
+        customerId: customerId as string,
+        userId: session?.user.id,
+        status: "ATIVO"
+      }
+    })
+
+    redirect("/dashboard");
+
+  }
+
   return (
     <Container>
       <main className="pb-5">
@@ -40,7 +65,10 @@ export default async function NewTicket() {
           </div>
         </div>
 
-        <form className="mt-5 flex flex-col items-center justify-center gap-2 bg-stone-200 p-5 rounded-xl">
+        <form
+          className="mt-5 flex flex-col items-center justify-center gap-2 bg-stone-200 p-5 rounded-xl"
+          action={handleRegisterTicket}
+        >
           <div className="flex flex-col items-start justify-start gap-1 w-full">
             <label htmlFor="name" className="text-sm">
               Nome do Chamado <span className="text-red-500">*</span>
@@ -48,7 +76,6 @@ export default async function NewTicket() {
             <input
               type="text"
               name="name"
-              id="name"
               placeholder="Digite o nome do chamado..."
               required
               className="w-full border-2 rounded-xl mb-2 p-2 placeholder:text-sm placeholder:text-gray-500"
@@ -62,7 +89,6 @@ export default async function NewTicket() {
             </label>
             <textarea
               name="description"
-              id="description"
               placeholder="Digite o problema..."
               required
               className="w-full border-2 rounded-xl mb-2 p-2 placeholder:text-sm placeholder:text-gray-500 resize-none h-32"
@@ -71,12 +97,11 @@ export default async function NewTicket() {
 
           {customers.length !== 0 ? (
             <div className="flex flex-col items-start justify-start gap-1 w-full">
-              <label htmlFor="select" className="text-sm">
+              <label htmlFor="customer" className="text-sm">
                 Selecione o Cliente <span className="text-red-500">*</span>
               </label>
               <select
-                name="select"
-                id="select"
+                name="customer"
                 className="w-full border-2 rounded-xl mb-2 p-2 placeholder:text-sm placeholder:text-gray-500 resize-none text-sm"
               >
                 {customers.map((customer) => (
