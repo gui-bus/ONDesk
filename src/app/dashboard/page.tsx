@@ -6,6 +6,7 @@ import { Button, Link } from "@nextui-org/react";
 import { BiLayerPlus } from "react-icons/bi";
 import { TicketItem } from "./components/ticket";
 import prismaClient from "../../lib/prisma";
+import { RiArchive2Line } from "react-icons/ri";
 
 export default async function Dashboard() {
   const session = await getServerSession(AuthOption);
@@ -23,8 +24,8 @@ export default async function Dashboard() {
       customer: true,
     },
     orderBy: {
-      created_at: "desc"
-    }
+      created_at: "desc",
+    },
   });
 
   return (
@@ -36,16 +37,29 @@ export default async function Dashboard() {
             Otimize a operação da sua empresa. Cadastre novos chamados,
             acompanhe o status, e acesse facilmente todas as interações.
           </p>
-          <Link href="/dashboard/new" className="w-full mx-auto max-w-md">
-            <Button
-              endContent={<BiLayerPlus size={20} />}
-              color="primary"
-              variant="shadow"
-              className="font-medium w-full max-w-sm h-12 mx-auto"
-            >
-              Novo Chamado
-            </Button>
-          </Link>
+          <div className="flex flex-col md:flex-row items-center justify-center gap-2 w-full max-w-[50rem]">
+            <Link href="/dashboard/new" className="w-full mx-auto max-w-md">
+              <Button
+                endContent={<BiLayerPlus size={20} />}
+                color="primary"
+                variant="shadow"
+                className="font-medium w-full max-w-sm h-12 mx-auto"
+              >
+                Novo Chamado
+              </Button>
+            </Link>
+
+            <Link href="/dashboard/archive" className="w-full mx-auto max-w-md">
+              <Button
+                endContent={<RiArchive2Line size={20} />}
+                color="primary"
+                variant="shadow"
+                className="font-medium w-full max-w-sm h-12 mx-auto"
+              >
+                Histórico de Chamados
+              </Button>
+            </Link>
+          </div>
         </div>
 
         {tickets.length !== 0 && (

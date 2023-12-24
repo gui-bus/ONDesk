@@ -32,7 +32,7 @@ interface TicketItemProps {
   customer: CustomerProps | null;
 }
 
-export function TicketItem({ customer, ticket }: TicketItemProps) {
+export function TicketItemArchive({ customer, ticket }: TicketItemProps) {
   const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const router = useRouter();
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -93,7 +93,7 @@ export function TicketItem({ customer, ticket }: TicketItemProps) {
           {ticket.created_at?.toLocaleDateString("pt-BR")}
         </td>
         <td className="text-center py-5">
-          <Chip color="success" radius="sm" className="uppercase text-white">
+          <Chip color="danger" radius="sm" className="uppercase text-white">
             {ticket.status}
           </Chip>
         </td>
@@ -113,25 +113,6 @@ export function TicketItem({ customer, ticket }: TicketItemProps) {
               isIconOnly
               size="sm"
               onPress={onOpen}
-            />
-          </Tooltip>
-
-          <Tooltip
-            content="Finalizar Chamado"
-            delay={0}
-            closeDelay={0}
-            color="success"
-            className="text-white"
-            radius="sm"
-          >
-            <Button
-              endContent={<IoMdCheckmarkCircleOutline size={20} />}
-              color="success"
-              variant="light"
-              className="font-medium md:ml-2"
-              isIconOnly
-              size="sm"
-              onClick={handleChangeStatus}
             />
           </Tooltip>
 
