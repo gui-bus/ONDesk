@@ -2,9 +2,10 @@ import { Container } from "../../components/common/container";
 import { getServerSession } from "next-auth";
 import { AuthOption } from "../../lib/auth";
 import { redirect } from "next/navigation";
-import { Button, Divider, Link } from "@nextui-org/react";
+import { Button, Link } from "@nextui-org/react";
 import { BiLayerPlus } from "react-icons/bi";
 import { TicketItem } from "./components/ticket";
+import prismaClient from "../../lib/prisma";
 
 export default async function Dashboard() {
   const session = await getServerSession(AuthOption);
@@ -12,6 +13,16 @@ export default async function Dashboard() {
   if (!session || !session.user) {
     redirect("/");
   }
+
+  const tickets = await prismaClient.ticket.findMany({
+    where: {
+      userId: session.user.id,
+      status: "ATIVO",
+    },
+    include: {
+      customer: true,
+    },
+  });
 
   return (
     <Container>
@@ -34,26 +45,42 @@ export default async function Dashboard() {
           </Link>
         </div>
 
-        <table className="min-w-full my-5 cursor-default">
-          <thead>
-            <tr className="bg-[#333333] p-2 font-black text-white">
-              <th className="text-center font-medium p-4">Cliente</th>
-              <th className="text-center font-medium p-4 hidden md:table-cell">
-                Data do Cadastro
-              </th>
-              <th className="text-center font-medium p-4">Status</th>
-              <th className="text-center font-medium p-4">Ações</th>
-            </tr>
-          </thead>
+        {tickets.length !== 0 && (
+          <table className="min-w-full my-5 cursor-default">
+            <thead>
+              <tr className="bg-[#333333] p-2 font-black text-white">
+                <th className="text-center font-medium p-4">Cliente</th>
+                <th className="text-center font-medium p-4 hidden md:table-cell">
+                  Data do Cadastro
+                </th>
+                <th className="text-center font-medium p-4">Status</th>
+                <th className="text-center font-medium p-4">Ações</th>
+              </tr>
+            </thead>
 
-          <tbody>
-            <TicketItem />
-            <TicketItem />
-            <TicketItem />
-            <TicketItem />
-            <TicketItem />
-          </tbody>
-        </table>
+            <tbody>
+              {tickets.map((ticket) => (
+                <TicketItem
+                  ticket={ticket}
+                  customer={ticket.customer}
+                  key={ticket.id}
+                />
+              ))}
+            </tbody>
+          </table>
+        )}
+
+        {tickets.length === 0 && (
+          <section className="flex flex-col items-center justify-center mt-5 text-center">
+            <h3 className="text-xl font-bold mb-3">
+              Oops! Parece que você ainda não possui nenhum chamado.
+            </h3>
+            <p className="font-light">
+              Cadastre algum chamado na plataforma e aproveite ao máximo os
+              recursos da ONDesk.
+            </p>
+          </section>
+        )}
       </main>
     </Container>
   );

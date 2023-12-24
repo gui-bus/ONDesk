@@ -56,7 +56,7 @@ export default async function DashboardCustomer() {
               Oops! Parece que você ainda não possui clientes cadastrados
             </h3>
             <p className="font-light">
-              Cadastre algum cliente na plataforma e aproveitar ao máximo os
+              Cadastre algum cliente na plataforma e aproveite ao máximo os
               recursos da ONDesk.
             </p>
           </section>
