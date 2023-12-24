@@ -7,6 +7,13 @@ import {
   Popover,
   PopoverTrigger,
   PopoverContent,
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  useDisclosure,
+  Link,
 } from "@nextui-org/react";
 import { RiDeleteBin2Fill } from "react-icons/ri";
 import { BiMessageSquareDetail } from "react-icons/bi";
@@ -17,6 +24,8 @@ import { api } from "../../../lib/api";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { IoReturnDownBack } from "react-icons/io5";
+import { TbMailForward, TbPhoneOutgoing } from "react-icons/tb";
 
 interface TicketItemProps {
   ticket: TicketProps;
@@ -24,11 +33,12 @@ interface TicketItemProps {
 }
 
 export function TicketItem({ customer, ticket }: TicketItemProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isPopoverOpen, setIsPopoverOpen] = useState(false);
   const router = useRouter();
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   const closePopover = () => {
-    setIsOpen(false);
+    setIsPopoverOpen(false);
   };
 
   async function handleChangeStatus() {
@@ -102,6 +112,7 @@ export function TicketItem({ customer, ticket }: TicketItemProps) {
               className="font-medium"
               isIconOnly
               size="sm"
+              onPress={onOpen}
             />
           </Tooltip>
 
@@ -126,8 +137,8 @@ export function TicketItem({ customer, ticket }: TicketItemProps) {
 
           <>
             <Popover
-              isOpen={isOpen}
-              onOpenChange={(open) => setIsOpen(open)}
+              isOpen={isPopoverOpen}
+              onOpenChange={(open) => setIsPopoverOpen(open)}
               backdrop="blur"
               classNames={{
                 base: "py-3 px-4 px-5",
@@ -190,6 +201,82 @@ export function TicketItem({ customer, ticket }: TicketItemProps) {
           </>
         </td>
       </tr>
+
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        isDismissable={true}
+        placement="center"
+        size="4xl"
+        scrollBehavior="inside"
+      >
+        <ModalContent>
+          {(onClose) => (
+            <>
+              <ModalHeader className="flex flex-col">
+                <h3 className="font-bold">{ticket.name}</h3>
+                <p className="text-xs font-light">ID - {ticket.id} | {ticket.created_at?.toLocaleDateString("pt-BR")}</p>
+                <Divider className="mt-3"/>
+              </ModalHeader>
+              <ModalBody className="flex flex-col">
+                <div className="flex flex-col items-start justify-start gap-2">
+                  <p className="font-light">{ticket.description}</p>
+                </div>
+
+                <Divider />
+
+                <div className="flex flex-col items-start justify-start gap-2">
+                  <p className="text-center text-xs font-light w-full mx-auto max-w-[80%]">
+                    Para entrar em contato direto com o seu cliente utilize os
+                    botôes abaixo
+                  </p>
+                  <div className="flex items-center justify-center gap-2 w-full mt-2">
+                    <Link
+                      href={`mailto:${customer?.email}`}
+                      isExternal
+                      className="w-full"
+                    >
+                      <Button
+                        color="primary"
+                        variant="ghost"
+                        className="font-medium w-full h-12 mx-auto"
+                        endContent={<TbMailForward size={20} />}
+                      >
+                        E-mail
+                      </Button>
+                    </Link>
+
+                    <Link
+                      href={`https://api.whatsapp.com/send/?phone=${customer?.phone}&text&type=phone_number&app_absent=0`}
+                      target="_blank"
+                      className="w-full"
+                    >
+                      <Button
+                        color="primary"
+                        variant="ghost"
+                        className="font-medium w-full h-12 mx-auto"
+                        endContent={<TbPhoneOutgoing size={20} />}
+                      >
+                        Telefone
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </ModalBody>
+              <ModalFooter>
+                <Button
+                  color="primary"
+                  variant="shadow"
+                  onPress={onClose}
+                  endContent={<IoReturnDownBack size={20} />}
+                >
+                  Voltar
+                </Button>
+              </ModalFooter>
+            </>
+          )}
+        </ModalContent>
+      </Modal>
     </>
   );
 }
